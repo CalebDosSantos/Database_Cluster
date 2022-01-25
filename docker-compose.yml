@@ -1,0 +1,31 @@
+version: '3.1'
+
+services:
+
+  mysql_db:
+    image: mysql
+    ports:
+      - 3306:3306
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DOCKER_mysql_db}
+    volumes:
+      - ~/Projetos/databases/volumes/mysql:/var/lib/mysql
+
+  postgres_db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: ${DOCKER_postgres_db}
+    ports:
+      - 5432:5432
+    restart: always
+    volumes:
+      - ~/Projetos/databases/volumes/postgresql:/var/lib/postgresql/data 
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8888:8080
+
